@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    volumes:
+      - .:/var/www/html
+    command: php artisan assessment:report
+    
+  test:
+    build: .
+    volumes:
+      - .:/var/www/html
+    command: php artisan test
