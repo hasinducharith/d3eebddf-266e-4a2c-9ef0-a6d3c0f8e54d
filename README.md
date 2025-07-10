@@ -8,7 +8,6 @@ A Laravel CLI application for generating student assessment reports.
 2. Install dependencies: `composer install`
 3. Create data directory: `mkdir -p storage/app/data`
 4. Copy JSON data files to `storage/app/data/`
-5. Set permissions: `chmod -R 777 storage bootstrap/cache`
 
 ## Usage
 
@@ -32,5 +31,4 @@ php artisan test
 ```bash
 docker-compose run app    # Run application
 docker-compose run test   # Run tests
-```
 ```
