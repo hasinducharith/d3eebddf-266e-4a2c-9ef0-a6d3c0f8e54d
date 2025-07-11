@@ -35,7 +35,7 @@ class FeedbackReportService
         $totalQuestions = count($questions);
         $correctAnswers = $this->calculateCorrectAnswers($latestResponse, $questions);
 
-        $report = "{$student->getFullName()} recently completed {$assessment->name} assessment on {$formattedDate}";
+        $report = "{$student->getFullName()} recently completed {$assessment->name} assessment on {$formattedDate}\n";
         $report .= "He got {$correctAnswers} questions right out of {$totalQuestions}.";
 
         foreach ($questions as $question) {
@@ -44,15 +44,15 @@ class FeedbackReportService
             
             if ($studentAnswer !== $correctAnswer) {
                 if($wrongAnswerCount == 0){
-                    $report .= " Feedback for wrong answers given below";
+                    $report .= " Feedback for wrong answers given below\n\n";
                     $wrongAnswerCount++;
                 }
                 $studentOption = $question->getOptionByKey($studentAnswer);
                 $correctOption = $question->getOptionByKey($correctAnswer);
                 
                 $report .= "Question: {$question->stem}\n";
-                $report .= "Your answer: {$studentOption['label']} with value {$studentOption['value']}";
-                $report .= "Right answer: {$correctOption['label']} with value {$correctOption['value']}";
+                $report .= "Your answer: {$studentOption['label']} with value {$studentOption['value']}\n";
+                $report .= "Right answer: {$correctOption['label']} with value {$correctOption['value']}\n";
                 $report .= "Hint: {$question->getHint()}\n\n";
             }
         }

@@ -37,8 +37,8 @@ class DiagnosticReportService
         
         $strandResults = $this->calculateStrandResults($latestResponse, $questions);
 
-        $report = "{$student->getFullName()} recently completed {$assessment->name} assessment on {$formattedDate}";
-        $report .= "He got {$correctAnswers} questions right out of {$totalQuestions}. Details by strand given below:";
+        $report = "{$student->getFullName()} recently completed {$assessment->name} assessment on {$formattedDate} \n";
+        $report .= "He got {$correctAnswers} questions right out of {$totalQuestions}. Details by strand given below:\n\n";
 
         foreach ($strandResults as $strand => $result) {
             $report .= "{$strand}: {$result['correct']} out of {$result['total']} correct\n";

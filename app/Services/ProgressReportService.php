@@ -34,12 +34,12 @@ class ProgressReportService
         $questions = $this->dataService->getAllQuestionsForAssessment($responses[0]->assessmentId);
         $totalQuestions = count($questions);
 
-        $report = "{$student->getFullName()} has completed {$assessment->name} assessment " . count($responses) . " times in total. Date and raw score given below";
+        $report = "{$student->getFullName()} has completed {$assessment->name} assessment " . count($responses) . " times in total. Date and raw score given below:\n\n";
 
         foreach ($responses as $response) {
             $date = $response->getCompletedDate()->format('jS F Y');
             $score = $response->results['rawScore'];
-            $report .= "Date: {$date}, Raw Score: {$score} out of {$totalQuestions}";
+            $report .= "Date: {$date}, Raw Score: {$score} out of {$totalQuestions}\n";
         }
 
         if (count($responses) > 1) {
