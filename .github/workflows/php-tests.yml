@@ -39,4 +39,4 @@ jobs:
       run: php artisan key:generate
 
     - name: Run PHPUnit Tests
-      run: php artisan test
+      run: vendor/bin/phpunit --verbose
