@@ -1,0 +1,42 @@
+# .github/workflows/ci.yml
+
+name: PHP Tests
+
+on:
+  push:
+    branches: [ "master", "development" ] # Trigger on push to these branches
+  pull_request:
+    branches: [ "master" ] # Trigger on pull requests to this branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4 # Action to checkout your repository code
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2 # Action to set up PHP environment
+      with:
+        php-version: '8.3' # Specify your PHP version (adjust if different from your Dockerfile)
+        extensions: mbstring, pdo, pdo_mysql, zip # Common extensions for Laravel
+        tools: composer # Install Composer
+
+    - name: Copy .env.example to .env
+      run: cp .env.example .env
+
+    - name: Install Composer Dependencies
+      run: composer install --no-dev --prefer-dist --optimize-autoloader
+
+    - name: Generate Application Key
+      run: php artisan key:generate
+
+    # Important: Setup the 'data' directory for tests
+    - name: Create data directory and copy JSON files for tests
+      run: |
+        mkdir -p storage/app/data
+        cp -r data/* storage/app/data/ # Copy contents from project root 'data' to storage/app/data
+
+    - name: Run PHPUnit Tests
+      run: vendor/bin/phpunit
